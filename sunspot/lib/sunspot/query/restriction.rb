@@ -135,7 +135,7 @@ module Sunspot
         # String:: Solr API representation of given value
         #
         def solr_value(value = @value)
-          solr_value = escape(@field.to_indexed(value))
+          solr_value = escape(@field.to_indexed(value)).gsub(/\\\*/, "*").gsub(/\\\?/, "?")
           if RESERVED_WORDS.include?(solr_value)
             %Q("#{solr_value}")
           else
